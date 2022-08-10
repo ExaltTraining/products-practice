@@ -1,2 +1,4 @@
-target/
-.vscode/
+/target
+/.vscode
+/.apt_generated
+/.apt_generated_tests

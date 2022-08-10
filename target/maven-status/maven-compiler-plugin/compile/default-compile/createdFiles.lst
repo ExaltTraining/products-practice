@@ -1,6 +1,0 @@
-com\app\AppHelper.class
-com\app\productsHelper\ProductsHelper.class
-com\app\Account.class
-com\app\loginHelper\LoginHelper.class
-com\app\productsHelper\CatalogHelper.class
-com\app\signUpHelper\SignupHelper.class
