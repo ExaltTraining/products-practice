@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="app" verbose="1">
+    <!-- <test name="testSignUp">
+        <classes>
+            <class name="com.app.signUpTests.SignupTest" />
+        </classes>
+    </test> -->
+    <!-- <test name="testSignIn">
+        <classes>
+            <class name="com.app.loginTests.LoginTest" />
+        </classes>
+    </test> -->
+    <test name="testProductsShopping">
+        <classes>
+            <class name="com.app.productsTests.ProductsTest" />
+        </classes>
+    </test>
+</suite>
