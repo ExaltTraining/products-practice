@@ -48,21 +48,21 @@ public class ProductsTest {
         AppHelper.print("--------------------------");
     }
 
-    @Test
-    public void validateViewTest() {
+    @Test(priority = 0)
+    public void validateSortingNameDESCTest() {
         AppHelper.run(new ProductsTest() {
         }.getClass().getEnclosingMethod());
 
-        ProductsHelper.setViewType(dvr, ProductsHelper.PRODUCTS_LIST_VIEW);
-        Assert.assertTrue(ProductsHelper.getViewType(dvr).equalsIgnoreCase("list"),
-                "View didn't change.");
+        ProductsHelper.selectSortType(dvr, ProductsHelper.SELECT_SORT_ITEM_NAME_DESC);
+        AppHelper.waitUntilNotPresenceOf(15, dvr, ProductsHelper.PRODUCTS_LIST_LOADING);
+        Assert.assertTrue(ProductsHelper.isProductsSortedAsNameDESC(dvr), "List was not sorted as desired.");
 
         AppHelper.finish(new ProductsTest() {
         }.getClass().getEnclosingMethod());
     }
 
-    @Test
-    public void validateSortingTest() {
+    @Test(priority = 1)
+    public void validateSortingPriceASCTest() {
         AppHelper.run(new ProductsTest() {
         }.getClass().getEnclosingMethod());
 
@@ -75,7 +75,7 @@ public class ProductsTest {
         }.getClass().getEnclosingMethod());
     }
 
-    @Test
+    @Test(priority = 7)
     public void validateFilteringTest() {
         AppHelper.run(new ProductsTest() {
         }.getClass().getEnclosingMethod());
@@ -85,6 +85,15 @@ public class ProductsTest {
         AppHelper.click(dvr, CatalogHelper.CHECK_NEW_CONDITION);
         AppHelper.waitUntilNotPresenceOf(15, dvr, ProductsHelper.PRODUCTS_LIST_LOADING);
 
+        Assert.assertTrue(
+                CatalogHelper.isThisFilterEnabled(dvr,
+                        CatalogHelper.getFilterName(dvr, CatalogHelper.CHECK_COTTON_COMPOSITIONS)),
+                "This filter shall be enabled.");
+        Assert.assertTrue(
+                CatalogHelper.isThisFilterEnabled(dvr,
+                        CatalogHelper.getFilterName(dvr, CatalogHelper.CHECK_NEW_CONDITION)),
+                "This filter shall be enabled.");
+
         List<WebElement> products = ProductsHelper.getProducts(dvr);
         List<String> expected = Arrays.asList("Faded Short Sleeve T-shirts", "Printed Dress", "Blouse");
         List<String> actual = new ArrayList<>();
@@ -93,9 +102,82 @@ public class ProductsTest {
         }
         Assert.assertTrue(actual.containsAll(expected), "List was not sorted as desired.");
 
+        AppHelper.click(dvr, CatalogHelper.CHECK_COTTON_COMPOSITIONS);
+        AppHelper.click(dvr, CatalogHelper.CHECK_NEW_CONDITION);
+        AppHelper.waitUntilNotPresenceOf(15, dvr, ProductsHelper.PRODUCTS_LIST_LOADING);
+
         AppHelper.finish(new ProductsTest() {
         }.getClass().getEnclosingMethod());
     }
+
+    @Test(priority = 8)
+    public void validateViewTest() {
+        AppHelper.run(new ProductsTest() {
+        }.getClass().getEnclosingMethod());
+
+        ProductsHelper.setViewType(dvr, ProductsHelper.PRODUCTS_LIST_VIEW);
+
+        Assert.assertTrue(ProductsHelper.productAddToCartButton(dvr, ProductsHelper.getProduct(dvr, 1)) != null,
+                "Element(Add to cart button) is not showing");
+        Assert.assertTrue(ProductsHelper.productAddToCompareButton(dvr, ProductsHelper.getProduct(dvr, 1)) != null,
+                "Element(Add to compare button) is not showing");
+        Assert.assertTrue(ProductsHelper.getProductName(dvr, ProductsHelper.getProduct(dvr, 1)) != null,
+                "Element(Name) is not showing");
+        Assert.assertTrue(ProductsHelper.getViewType(dvr).equalsIgnoreCase("list"),
+                "View didn't change.");
+
+        ProductsHelper.setViewType(dvr, ProductsHelper.PRODUCTS_GRID_VIEW);
+
+        AppHelper.finish(new ProductsTest() {
+        }.getClass().getEnclosingMethod());
+    }
+
+    @Test(priority = 9)
+    public void validateOtherFiltersTest() {
+        AppHelper.run(new ProductsTest() {
+        }.getClass().getEnclosingMethod());
+
+        ProductsHelper.setViewType(dvr, ProductsHelper.PRODUCTS_GRID_VIEW);
+        AppHelper.click(dvr, CatalogHelper.CHECK_YELLOW_COLOR);
+        CatalogHelper.setMaxPrice(dvr, 30);
+        AppHelper.waitUntilNotPresenceOf(25, dvr, ProductsHelper.PRODUCTS_LIST_LOADING);
+
+        List<WebElement> products = ProductsHelper.getProducts(dvr);
+        List<String> productsNameExpected = Arrays.asList("Printed Summer Dress", "Printed Chiffon Dress");
+        List<String> productsNameActual = new ArrayList<>();
+        for (WebElement p : products) {
+            productsNameActual.add(ProductsHelper.getProductName(dvr, p));
+        }
+        Assert.assertTrue(productsNameExpected.containsAll(productsNameActual), "List shall has porducts.");
+        Assert.assertTrue(products.size() == 2, "List shall has porducts.");
+
+        AppHelper.finish(new ProductsTest() {
+        }.getClass().getEnclosingMethod());
+    }
+
+    @Test(priority = 10)
+    public void validateInStockTest() {
+        AppHelper.run(new ProductsTest() {
+        }.getClass().getEnclosingMethod());
+
+        ProductsHelper.setViewType(dvr, ProductsHelper.PRODUCTS_GRID_VIEW);
+        AppHelper.click(dvr, CatalogHelper.CHECK_IN_STOCK_AVAILABILITY);
+        AppHelper.waitUntilNotPresenceOf(15, dvr, ProductsHelper.PRODUCTS_LIST_LOADING);
+
+        Assert.assertTrue(ProductsHelper.getProducts(dvr).size() == 7, "List shall has porducts.");
+
+        AppHelper.finish(new ProductsTest() {
+        }.getClass().getEnclosingMethod());
+    }
+
+    /**
+     * add more validation to list view change --- DONE
+     * enabled filters --- DONE
+     * text desc order --- DONE
+     * color, and price range --- DONE
+     * in stock 2 reports (does not show any product, removeing in stock filter
+     * removes other filters) --- DONE
+     */
 
     @AfterTest
     public void teardown() throws InterruptedException {
