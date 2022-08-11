@@ -1,9 +1,11 @@
 package com.app.productsHelper;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 
@@ -38,14 +40,27 @@ public class CatalogHelper {
     public static final String CHECK_IN_STOCK_AVAILABILITY = "//input[@id='layered_quantity_1']";
     public static final String CHECK_FASHION_MANUFACTURER_MANUFACTURER = "//input[@id='layered_manufacturer_1']";
     public static final String CHECK_NEW_CONDITION = "//input[@id='layered_condition_new']";
-    public static final String LIST_ENABLED_FILTERS = "//div[@id='enabled_filters']//child::ul/li";
+    public static final String LIST_ENABLED_FILTERS = "//div[@id='enabled_filters']//child::ul";
     public static final String SLIDER_PRICE_RANGE = "//div[@id='layered_price_slider']";
     public static final String SLIDER_PRICE_RANGE_MIN = SLIDER_PRICE_RANGE + "/a[1]";
     public static final String SLIDER_PRICE_RANGE_MAX = SLIDER_PRICE_RANGE + "/a[2]";
     public static final String LABEL_PRICE_RANGE = "//span[@id='layered_price_range']";
 
-    public static String enabledFilterCancelButton(int index) {
-        return LIST_ENABLED_FILTERS + "[" + index + "]//a[@title='Cancel']";
+    public static String getEnabledFilterCancelButton(int index) {
+        return LIST_ENABLED_FILTERS + "/li[" + index + "]//a[@title='Cancel']";
+    }
+
+    public static boolean isThisFilterEnabled(WebDriver dvr, String filterName) {
+        try {
+            List<WebElement> products = AppHelper.findElements(dvr, LIST_ENABLED_FILTERS + "/li");
+            for (WebElement p : products) {
+                if (p.getText().contains(filterName) == true)
+                    return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static String[] getPrice(WebDriver dvr) {
@@ -105,6 +120,10 @@ public class CatalogHelper {
             minDiff = Math.abs(getMaxPrice(dvr) - maxPrice);
             move.perform();
         }
+    }
+
+    public static String getFilterName(WebDriver dvr, String filterXPath) {
+        return AppHelper.findElement(dvr, filterXPath).getText();
     }
 
 }

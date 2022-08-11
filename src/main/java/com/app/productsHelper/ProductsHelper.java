@@ -15,6 +15,7 @@ public class ProductsHelper {
     public static final String SELECT_SORT_MENU = "//select[@id='selectProductSort']";
     // There are more sorting types, but I want to test this one ONLY.
     public static final String SELECT_SORT_ITEM_PRICE_ASC = "price:asc";
+    public static final String SELECT_SORT_ITEM_NAME_DESC = "name:asc";
     public static final int PRODUCTS_VIEW_LIST = 0;
     public static final int PRODUCTS_VIEW_GRID = 1;
     public static final String PRODUCTS_LIST_VIEW = "//li[@id='list']/a";
@@ -48,7 +49,11 @@ public class ProductsHelper {
     }
 
     public static String getProductName(WebDriver dvr, WebElement product) {
-        return product.findElement(By.xpath(".//div[2]//child::a[@class='product-name']")).getText();
+        try {
+            return product.findElement(By.xpath(".//div[2]//child::a[@class='product-name']")).getText();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static double getProductPrice(WebDriver dvr, WebElement product) {
@@ -60,6 +65,22 @@ public class ProductsHelper {
     public static boolean isProductAvailable(WebDriver dvr, WebElement product) {
         return "In stock"
                 .equals(product.findElement(By.xpath(".//div[2]//child::span[@class='available-now']")).getText());
+    }
+
+    public static WebElement productAddToCartButton(WebDriver dvr, WebElement product) {
+        try {
+            return product.findElement(By.xpath(".//child::a[contains(@class, 'ajax_add_to_cart_button')]"));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static WebElement productAddToCompareButton(WebDriver dvr, WebElement product) {
+        try {
+            return product.findElement(By.xpath(".//child::a[contains(@class, 'add_to_compare')]"));
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static boolean isProductListEmpty(WebDriver dvr) {
@@ -89,6 +110,22 @@ public class ProductsHelper {
         for (WebElement p : products) {
             double temp = ProductsHelper.getProductPrice(dvr, p);
             if (comp > temp) {
+                assertion = false;
+                break;
+            }
+            comp = temp;
+        }
+        return assertion;
+    }
+
+    public static boolean isProductsSortedAsNameDESC(WebDriver dvr) {
+        String comp = "a";
+        boolean assertion = true;
+        List<WebElement> products = ProductsHelper.getProducts(dvr);
+        for (WebElement p : products) {
+            String temp = ProductsHelper.getProductName(dvr, p);
+            System.out.println(temp);
+            if (comp.compareToIgnoreCase(temp) > 0) {
                 assertion = false;
                 break;
             }
