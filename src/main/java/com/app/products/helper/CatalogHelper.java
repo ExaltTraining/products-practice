@@ -1,4 +1,4 @@
-package com.app.productsHelper;
+package com.app.products.helper;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 
-import com.app.AppHelper;
+import com.app.helper.AppHelper;
 
 public class CatalogHelper {
 

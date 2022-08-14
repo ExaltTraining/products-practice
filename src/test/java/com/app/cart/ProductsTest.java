@@ -1,4 +1,4 @@
-package com.app.productsTests;
+package com.app.cart;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,9 +14,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.app.AppHelper;
-import com.app.productsHelper.CatalogHelper;
-import com.app.productsHelper.ProductsHelper;
+import com.app.helper.AppHelper;
+import com.app.products.ProductsHelper;
+import com.app.products.helper.CatalogHelper;
 
 public class ProductsTest {
 
@@ -169,15 +169,6 @@ public class ProductsTest {
         AppHelper.finish(new ProductsTest() {
         }.getClass().getEnclosingMethod());
     }
-
-    /**
-     * add more validation to list view change --- DONE
-     * enabled filters --- DONE
-     * text desc order --- DONE
-     * color, and price range --- DONE
-     * in stock 2 reports (does not show any product, removeing in stock filter
-     * removes other filters) --- DONE
-     */
 
     @AfterTest
     public void teardown() throws InterruptedException {

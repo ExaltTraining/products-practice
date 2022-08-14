@@ -1,4 +1,4 @@
-package com.app.signUpHelper;
+package com.app.signup.helper;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.app.Account;
-import com.app.AppHelper;
+import com.app.helper.AppHelper;
 
 public class SignupHelper {
 

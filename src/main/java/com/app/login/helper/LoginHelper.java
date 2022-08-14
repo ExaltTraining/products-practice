@@ -1,8 +1,8 @@
-package com.app.loginHelper;
+package com.app.login.helper;
 
 import org.openqa.selenium.WebDriver;
 
-import com.app.AppHelper;
+import com.app.helper.AppHelper;
 
 public class LoginHelper {
 

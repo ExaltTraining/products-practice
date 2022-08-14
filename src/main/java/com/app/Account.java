@@ -1,6 +1,6 @@
 package com.app;
 
-import com.app.signUpHelper.SignupHelper;
+import com.app.signup.helper.SignupHelper;
 
 public class Account {
     private String gender;

@@ -1,4 +1,4 @@
-package com.app.productsHelper;
+package com.app.products;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.app.AppHelper;
+import com.app.helper.AppHelper;
 
 public class ProductsHelper {
 

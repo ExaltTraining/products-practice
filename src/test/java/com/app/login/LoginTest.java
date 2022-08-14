@@ -1,4 +1,4 @@
-package com.app.loginTests;
+package com.app.login;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,8 +9,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.app.AppHelper;
-import com.app.loginHelper.LoginHelper;
+import com.app.helper.AppHelper;
+import com.app.login.helper.LoginHelper;
 
 public class LoginTest {
 
