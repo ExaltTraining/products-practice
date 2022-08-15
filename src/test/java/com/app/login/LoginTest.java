@@ -53,8 +53,8 @@ public class LoginTest {
         AppHelper.run(new LoginTest() {
         }.getClass().getEnclosingMethod());
 
-        LoginHelper.enterEmail(dvr, "newaccount0123@gmail.com");
-        LoginHelper.enterPassword(dvr, "qwer1234Q!");
+        LoginHelper.enterEmail(dvr, AppHelper.FIXED_EMAIL);
+        LoginHelper.enterPassword(dvr, AppHelper.FIXED_PASSWORD);
         LoginHelper.login(dvr);
 
         Assert.assertTrue(AppHelper.waitUntilTextToBe(5, dvr, LoginHelper.HEADING_MAIN_SECTION,

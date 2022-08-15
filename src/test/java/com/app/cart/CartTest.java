@@ -17,6 +17,7 @@ import com.app.products.helper.ProductsHelper;
 public class CartTest {
 
     private WebDriver dvr;
+    private Cart cart;
 
     @BeforeTest
     public void setup() {
@@ -44,7 +45,7 @@ public class CartTest {
         AppHelper.print("--------------------------");
     }
 
-    @Test
+    @Test(priority = 0)
     public void validateAddingProductsToCartSummationTest() {
         AppHelper.run(new CartTest() {
         }.getClass().getEnclosingMethod());
@@ -52,51 +53,31 @@ public class CartTest {
         ProductsHelper.setViewType(dvr, ProductsHelper.PRODUCTS_LIST_VIEW);
 
         CartHelper.addToCart(dvr, 1);
-        AppHelper.waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilPresenceOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilToBeClickable(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
-        AppHelper.waitUntilPresenceOf(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
-        AppHelper.waitUntilToBeClickable(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
+        AppHelper.forceWait(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
+        AppHelper.forceWait(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
         AppHelper.click(dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
         CartHelper.addToCart(dvr, 1);
-        AppHelper.waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilPresenceOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilToBeClickable(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
-        AppHelper.waitUntilPresenceOf(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
-        AppHelper.waitUntilToBeClickable(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
+        AppHelper.forceWait(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
+        AppHelper.forceWait(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
         AppHelper.click(dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
         CartHelper.addToCart(dvr, 1);
-        AppHelper.waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilPresenceOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilToBeClickable(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
-        AppHelper.waitUntilPresenceOf(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
-        AppHelper.waitUntilToBeClickable(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
+        AppHelper.forceWait(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
+        AppHelper.forceWait(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
         AppHelper.click(dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
         CartHelper.addToCart(dvr, 2);
-        AppHelper.waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilPresenceOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilToBeClickable(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
-        AppHelper.waitUntilPresenceOf(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
-        AppHelper.waitUntilToBeClickable(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
+        AppHelper.forceWait(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
+        AppHelper.forceWait(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
         AppHelper.click(dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
         CartHelper.addToCart(dvr, 3);
-        AppHelper.waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilPresenceOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilToBeClickable(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
-        AppHelper.waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
-        AppHelper.waitUntilPresenceOf(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
-        AppHelper.waitUntilToBeClickable(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
+        AppHelper.forceWait(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
+        AppHelper.forceWait(15, dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
         AppHelper.click(dvr, CartHelper.LAYER_BUTTON_PRODUCT_ADDED_CONTINUE);
 
         WebElement product1 = ProductsHelper.getProduct(dvr, 1);
         WebElement product2 = ProductsHelper.getProduct(dvr, 2);
         WebElement product3 = ProductsHelper.getProduct(dvr, 3);
 
-        Cart cart = new Cart();
+        cart = new Cart();
         cart.addItem(new CartItem(ProductsHelper.getProductName(dvr, product1),
                 ProductsHelper.getProductPrice(dvr, product1), 3));
         cart.addItem(new CartItem(ProductsHelper.getProductName(dvr, product2),
@@ -107,6 +88,45 @@ public class CartTest {
         CartHelper.goToCart(dvr);
 
         Assert.assertTrue(CartHelper.checkSummation(dvr, cart), "Summation failed!");
+
+        AppHelper.finish(new CartTest() {
+        }.getClass().getEnclosingMethod());
+    }
+
+    @Test(priority = 1)
+    public void validateCheckoutTest() {
+        AppHelper.run(new CartTest() {
+        }.getClass().getEnclosingMethod());
+
+        AppHelper.click(dvr, CartHelper.BUTTON_PROCEED_TO_SIGN_IN);
+
+        AppHelper.sendTextTo(dvr, AppHelper.FIXED_EMAIL, CartHelper.INPUT_CHECKOUT_SIGNIN_EMAIL);
+        AppHelper.sendTextTo(dvr, AppHelper.FIXED_PASSWORD, CartHelper.INPUT_CHECKOUT_SIGNIN_PASSWORD);
+
+        AppHelper.click(dvr, CartHelper.BUTTON_CHECKOUT_SIGNIN_SUBMIT_LOGIN);
+        AppHelper.click(dvr, CartHelper.BUTTON_PROCEED_TO_SHIPPING);
+        AppHelper.click(dvr, CartHelper.CHECK_TERMS_AGREEMENT);
+        AppHelper.click(dvr, CartHelper.BUTTON_PROCEED_TO_PAYMENT);
+
+        System.out.println(
+                CartHelper.getTotalCheckoutPayment(dvr) == (cart.getTotalProductsPrice() + cart.getTotalShipping()));
+        Assert.assertTrue(
+                CartHelper.getTotalCheckoutPayment(dvr) == (cart.getTotalProductsPrice() + cart.getTotalShipping()),
+                "Checkout summation failed!");
+
+        AppHelper.click(dvr, CartHelper.BUTTON_PAYMENT_METHOD_PAY_BY_CHECK);
+
+        System.out.println(
+                CartHelper.getFinalTotalCheckPayment(dvr) == (cart.getTotalProductsPrice() + cart.getTotalShipping()));
+        Assert.assertTrue(
+                CartHelper.getFinalTotalCheckPayment(dvr) == (cart.getTotalProductsPrice() + cart.getTotalShipping()),
+                "Final checkout summation failed!");
+
+        AppHelper.click(dvr, CartHelper.BUTTON_CONFIRM_ORDER);
+
+        Assert.assertTrue(
+                AppHelper.waitUntilVisibilityOf(10, dvr, CartHelper.ALERT_SUCCESSFUL_CHECKOUT),
+                "Successful message not found.");
 
         AppHelper.finish(new CartTest() {
         }.getClass().getEnclosingMethod());

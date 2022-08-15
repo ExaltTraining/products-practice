@@ -23,6 +23,19 @@ public class CartHelper {
     public static final String TOTAL_WITHOUT_TAX = "//td[@id='total_price_without_tax']";
     public static final String TOTAL_TAX = "//td[@id='total_tax']";
     public static final String TOTAL = "//span[@id='total_price']";
+    public static final String CENTER_COLUMN = "//div[@id='center_column']";
+    public static final String BUTTON_PROCEED_TO_SIGN_IN = CENTER_COLUMN + "//a[contains(@class, 'standard-checkout')]";
+    public static final String BUTTON_PROCEED_TO_SHIPPING = CENTER_COLUMN + "//button[@name='processAddress']";
+    public static final String BUTTON_PROCEED_TO_PAYMENT = CENTER_COLUMN + "//button[@name='processCarrier']";
+    public static final String INPUT_CHECKOUT_SIGNIN_EMAIL = "//input[@id='email']";
+    public static final String INPUT_CHECKOUT_SIGNIN_PASSWORD = "//input[@id='passwd']";
+    public static final String BUTTON_CHECKOUT_SIGNIN_SUBMIT_LOGIN = "//button[@id='SubmitLogin']";
+    public static final String CHECK_TERMS_AGREEMENT = "//input[@id='cgv']";
+    public static final String CHECKOUT_TOTAL = "//td[@id='total_price_container']/span";
+    public static final String BUTTON_PAYMENT_METHOD_PAY_BY_CHECK = "//div[@id='HOOK_PAYMENT']//child::a[@class='cheque']";
+    public static final String BUTTON_CONFIRM_ORDER = "//form/p[@id='cart_navigation']//child::button[contains(@class, 'button-medium')]";
+    public static final String FINAL_CHECK_PAYMENT_TOTAL = "//span[@id='amount']";
+    public static final String ALERT_SUCCESSFUL_CHECKOUT = CENTER_COLUMN + "//p[contains(@class, 'alert-success')]";
 
     public static Product addToCart(WebDriver dvr, int productIndex) {
         WebElement product = ProductsHelper.getProduct(dvr, productIndex);
@@ -82,6 +95,14 @@ public class CartHelper {
 
     public static double getCartTotal(WebDriver dvr) {
         return Double.parseDouble(AppHelper.findElement(dvr, TOTAL).getText().replace("$", ""));
+    }
+
+    public static double getTotalCheckoutPayment(WebDriver dvr) {
+        return Double.parseDouble(AppHelper.findElement(dvr, CHECKOUT_TOTAL).getText().replace("$", ""));
+    }
+
+    public static double getFinalTotalCheckPayment(WebDriver dvr) {
+        return Double.parseDouble(AppHelper.findElement(dvr, FINAL_CHECK_PAYMENT_TOTAL).getText().replace("$", ""));
     }
 
     public static boolean checkSummation(WebDriver dvr, Cart expectedCart) {

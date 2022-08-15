@@ -13,6 +13,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.app.cart.helper.CartHelper;
+
 public class AppHelper {
     public static final String WEBSITE_BASE_URL = "http://automationpractice.com";
     public static final String WEBSITE_AUTH_URL = WEBSITE_BASE_URL + "/index.php?controller=authentication";
@@ -22,6 +24,8 @@ public class AppHelper {
     public static final String CHROME_DRIVER_KEY = "webdriver.chrome.driver";
     public static final String HEADER_SIGN_IN_BUTTON = "//header[@id='header']//child::a[@class='login']";
     public static final String HEADER_SIGN_OUT_BUTTON = "//header[@id='header']//child::a[@class='logout']";
+    public static final String FIXED_EMAIL = "newaccount0123@gmail.com";
+    public static final String FIXED_PASSWORD = "qwer1234Q!";
 
     public static void log(String text) {
         print("> " + text);
@@ -62,6 +66,13 @@ public class AppHelper {
     public static boolean waitUntilAttributeToBe(int secTimeOut, WebDriver dvr, String xpath, String attribute,
             String value) {
         return waitUntil(secTimeOut, dvr, ExpectedConditions.attributeContains(By.xpath(xpath), attribute, value));
+    }
+
+    public static boolean forceWait(int secTimeOut, WebDriver dvr, String xpath) {
+        return waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED) &
+                waitUntilPresenceOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED) &
+                waitUntilToBeClickable(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
+
     }
 
     public static <T> boolean waitUntil(int secTimeOut, WebDriver dvr, ExpectedCondition<T> condition) {
