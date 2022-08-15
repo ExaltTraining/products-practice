@@ -4,7 +4,7 @@
 ## DESCRIPTION
 
 Testing a website with Selenium with java.
-See [SERVER](http://automationpractice.com)
+See [WEBSITE](http://automationpractice.com)
 
 ## Running the tests:
 ### Make sure that Maven is installed into your machine
