@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="SignupTestSuite" verbose="1">
+    <test name="testSignUp">
+        <classes>
+            <class name="com.app.signup.SignupTest" />
+        </classes>
+    </test>
+</suite>
