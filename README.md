@@ -9,10 +9,10 @@ See [SERVER](http://automationpractice.com)
 ## Running the tests:
 ### Make sure that Maven is installed into your machine
 ### Replace 'TEST_SUITE_FILE' with one of the following: 
-### cart_test_suite.xml
-### products_test_suite.xml
-### signin_test_suite.xml 
-### signup_test_suite.xml
+cart_test_suite.xml
+products_test_suite.xml
+signin_test_suite.xml 
+signup_test_suite.xml
 
 ### Run command:
 ```
