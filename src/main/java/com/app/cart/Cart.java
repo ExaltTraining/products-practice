@@ -25,10 +25,19 @@ public class Cart {
     }
 
     public void removeItem(CartItem item) {
+        counter--;
+        totalProductsPrice -= item.getQuantity() * item.getProduct().getPrice();
+        totalPriceWithOutTax = totalProductsPrice + totalShipping;
+        total = totalPriceWithOutTax + totalTax;
         products.remove(item);
     }
 
     public void removeItem(int index) {
+        CartItem item = products.get(index);
+        counter--;
+        totalProductsPrice -= item.getQuantity() * item.getProduct().getPrice();
+        totalPriceWithOutTax = totalProductsPrice + totalShipping;
+        total = totalPriceWithOutTax + totalTax;
         products.remove(index);
     }
 
@@ -58,6 +67,15 @@ public class Cart {
 
     public double getTotal() {
         return total;
+    }
+
+    public boolean find(CartItem item) {
+        for (CartItem cartItem : products) {
+            if (cartItem.equals(item)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

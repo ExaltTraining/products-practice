@@ -11,9 +11,14 @@
             <class name="com.app.loginTests.LoginTest" />
         </classes>
     </test> -->
-    <test name="testProductsShopping">
+    <!-- <test name="testProductsShopping">
         <classes>
             <class name="com.app.productsTests.ProductsTest" />
+        </classes>
+    </test> -->
+    <test name="testCart">
+        <classes>
+            <class name="com.app.cart.CartTest" />
         </classes>
     </test>
 </suite>

@@ -43,12 +43,25 @@ public class AppHelper {
         return waitUntil(secTimeOut, dvr, ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
     }
 
+    public static boolean waitUntilVisibilityOf(int secTimeOut, WebDriver dvr, String xpath) {
+        return waitUntil(secTimeOut, dvr, ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+    }
+
+    public static boolean waitUntilToBeClickable(int secTimeOut, WebDriver dvr, String xpath) {
+        return waitUntil(secTimeOut, dvr, ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+    }
+
     public static boolean waitUntilNotPresenceOf(int secTimeOut, WebDriver dvr, String xpath) {
         return waitUntil(secTimeOut, dvr, ExpectedConditions.invisibilityOfElementLocated(By.xpath(xpath)));
     }
 
     public static boolean waitUntilTextToBe(int secTimeOut, WebDriver dvr, String xpath, String text) {
         return waitUntil(secTimeOut, dvr, ExpectedConditions.textToBe(By.xpath(xpath), text));
+    }
+
+    public static boolean waitUntilAttributeToBe(int secTimeOut, WebDriver dvr, String xpath, String attribute,
+            String value) {
+        return waitUntil(secTimeOut, dvr, ExpectedConditions.attributeContains(By.xpath(xpath), attribute, value));
     }
 
     public static <T> boolean waitUntil(int secTimeOut, WebDriver dvr, ExpectedCondition<T> condition) {

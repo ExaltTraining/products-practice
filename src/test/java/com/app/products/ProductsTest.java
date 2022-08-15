@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 
 import com.app.helper.AppHelper;
 import com.app.products.helper.CatalogHelper;
+import com.app.products.helper.ProductsHelper;
 
 public class ProductsTest {
 
