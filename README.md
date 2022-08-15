@@ -3,7 +3,7 @@
 
 ## DESCRIPTION
 
-Testing a website with Selenium with java.
+Testing a website with Selenium and java.
 See [WEBSITE](http://automationpractice.com)
 
 ## Running the tests:
