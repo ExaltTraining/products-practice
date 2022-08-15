@@ -13,8 +13,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.app.cart.helper.CartHelper;
-
 public class AppHelper {
     public static final String WEBSITE_BASE_URL = "http://automationpractice.com";
     public static final String WEBSITE_AUTH_URL = WEBSITE_BASE_URL + "/index.php?controller=authentication";
@@ -69,9 +67,9 @@ public class AppHelper {
     }
 
     public static boolean forceWait(int secTimeOut, WebDriver dvr, String xpath) {
-        return waitUntilVisibilityOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED) &
-                waitUntilPresenceOf(15, dvr, CartHelper.LAYER_PRODUCT_ADDED) &
-                waitUntilToBeClickable(15, dvr, CartHelper.LAYER_PRODUCT_ADDED);
+        return waitUntilVisibilityOf(15, dvr, xpath) &
+                waitUntilPresenceOf(15, dvr, xpath) &
+                waitUntilToBeClickable(15, dvr, xpath);
 
     }
 
